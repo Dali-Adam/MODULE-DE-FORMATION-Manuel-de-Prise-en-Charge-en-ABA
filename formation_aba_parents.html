@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuel de Prise en Charge en ABA</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/solid.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/選擇.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/dist/chtml.js"></script>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #0f172a 0%, #0d9488 100%);
+            --teal-50: #f0fdfa;
+            --teal-600: #0d9488;
+            --teal-700: #0f766e;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --rose-50: #fff1f2;
+            --rose-600: #e11d48;
+            --emerald-50: #ecfdf5;
+            --emerald-600: #059669;
+            --border: #e2e8f0;
+            --radius: 14px;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -4px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--slate-50);
+            color: var(--slate-900);
+            line-height: 1.6;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            padding: 40px 24px;
+            text-align: center;
+            border-bottom: 4px solid var(--teal-600);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--slate-100);
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .navigation {
+            display: flex;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .navigation::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 16px 12px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--slate-700);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--teal-600);
+            background-color: var(--slate-50);
+        }
+
+        .tab-btn.active {
+            color: var(--teal-600);
+            border-bottom-color: var(--teal-600);
+            background-color: var(--teal-50);
+        }
+
+        .content {
+            padding: 30px 24px;
+        }
+
+        .section-panel {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .section-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--slate-900);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--slate-100);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--teal-700);
+            margin: 24px 0 12px 0;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--slate-700);
+            font-size: 0.95rem;
+        }
+
+        .review-box {
+            background-color: var(--teal-50);
+            border: 1px dashed var(--teal-600);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .review-box h4 {
+            color: var(--teal-700);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .review-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .review-box li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .review-box li::before {
+            content: "•";
+            color: var(--teal-600);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .variables-container {
+            background: var(--slate-100);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .variable-item {
+            margin-bottom: 14px;
+        }
+
+        .variable-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .variable-item strong {
+            color: var(--slate-900);
+        }
+
+        .example-block {
+            margin-left: 15px;
+            margin-top: 6px;
+            font-size: 0.9rem;
+        }
+
+        .example-block .incorrect { color: var(--rose-600); }
+        .example-block .correct-ex { color: var(--emerald-600); }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+            color: var(--slate-700);
+            font-size: 0.95rem;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--slate-100);
+            font-weight: 700;
+            color: var(--slate-800);
+        }
+
+        .math-center {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            background: var(--slate-100);
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        /* Styles du Quiz */
+        .quiz-wrapper {
+            background-color: var(--slate-100);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            margin-top: 10px;
+        }
+
+        .quiz-q-text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            margin-bottom: 20px;
+        }
+
+        .quiz-options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option-btn {
+            width: 100%;
+            padding: 14px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: var(--slate-800);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            border-color: var(--teal-600);
+            background-color: var(--teal-50);
+        }
+
+        .quiz-option-btn.correct-style {
+            background-color: var(--emerald-50);
+            border-color: var(--emerald-600);
+            color: var(--emerald-600);
+            font-weight: 600;
+        }
+
+        .quiz-option-btn.incorrect-style {
+            background-color: var(--rose-50);
+            border-color: var(--rose-600);
+            color: var(--rose-600);
+        }
+
+        .quiz-feedback {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+            border-left: 4px solid transparent;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.pass {
+            background-color: var(--emerald-50);
+            border-left-color: var(--emerald-600);
+            color: var(--emerald-600);
+        }
+
+        .quiz-feedback.fail {
+            background-color: var(--rose-50);
+            border-left-color: var(--rose-600);
+            color: var(--rose-600);
+        }
+
+        .footer-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            align-items: center;
+        }
+
+        .nav-control-btn {
+            background-color: var(--slate-800);
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .nav-control-btn:hover {
+            background-color: var(--slate-900);
+        }
+
+        .nav-control-btn:disabled {
+            background-color: var(--border);
+            color: var(--slate-700);
+            cursor: not-allowed;
+        }
+
+        .nav-control-btn.highlight-btn {
+            background-color: var(--teal-600);
+        }
+
+        .nav-control-btn.highlight-btn:hover {
+            background-color: var(--teal-700);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 8px; }
+            .container { margin: 5px auto; border-radius: 8px; }
+            .header { padding: 25px 16px; }
+            .header h1 { font-size: 1.4rem; }
+            .content { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>MODULE DE FORMATION : Manuel de Prise en Charge en ABA</h1>
+        <p>Un parcours à destination des parents aidants pour structurer l'accompagnement au quotidien.</p>
+    </div>
+
+    <div class="navigation">
+        <button class="tab-btn active" id="nav-1" onclick="changePanel(1)">Partie 1 : Fondements</button>
+        <button class="tab-btn" id="nav-2" onclick="changePanel(2)">Partie 2 : Principes</button>
+        <button class="tab-btn" id="nav-3" onclick="changePanel(3)">Partie 3 : Techniques</button>
+        <button class="tab-btn" id="nav-4" onclick="changePanel(4)">Partie 4 : Comportements Défis</button>
+        <button class="tab-btn" id="nav-5" onclick="changePanel(5)">Partie 5 : Évaluation</button>
+    </div>
+
+    <div class="content">
+        <div id="panel-1" class="section-panel active">
+            <h2>PARTIE 1 : Épistémologie, Éthique et Modèle Fondamental ABC</h2>
+            <h3>1.1 Définition</h3>
+            <p>L'Analyse Appliquée du Comportement (ABA) est la branche pratique de la science du comportement. Elle n'est ni un « traitement de cabinet », ni une méthode de conditionnement coercitif. Elle repose sur le principe que les comportements (verbaux, moteurs, sociaux) sont façonnés par leurs interactions continues avec l'environnement.</p>
+            
+            <div class="review-box">
+                <h4>🔍 Regard Critique sur l'ABA Moderne :</h4>
+                <ul>
+                    <li><strong>Idée reçue :</strong> L'ABA est une méthode de dressage par répétition mécanique.</li>
+                    <li><strong>Réalité clinique :</strong> L'ABA contemporaine (au-delà des travaux historiques de Lovaas dans les années 1970) privilégie les approches naturalistes (NET - Natural Environment Teaching). Le but n'est pas l'obéissance, mais l'autonomie fonctionnelle, la réduction de la détresse de l'enfant et le développement d'outils de communication efficaces.</li>
+                </ul>
+            </div>
+
+            <h3>1.2 Analyse Fonctionnelle Descriptive</h3>
+            <p>Chaque action humaine s'inscrit dans une boucle temporelle de rétroaction. Pour analyser un comportement, vous devez impérativement isoler trois variables distinctes :</p>
+            
+            <div class="variables-container">
+                <div class="variable-item">
+                    <strong>Antécédent (A) :</strong> Les stimuli environnementaux présents juste avant l'émission du comportement. Il englobe le contexte physique (bruit, luminosité), social (présence d'un tiers, demande explicite), et interne (fatigue, faim, douleur).
+                </div>
+                <div class="variable-item">
+                    <strong>Comportement (B - Behavior) :</strong> L'action de l'organisme. En ABA, un comportement doit être observable et mesurable.
+                    <div class="example-block">
+                        <span class="incorrect">❌ Exemple incorrect :</span> « L'enfant est jaloux » (Ceci est une interprétation mentaliste).<br>
+                        <span class="correct-ex">👉 Exemple correct :</span> « L'enfant arrache le jouet des mains de sa sœur et crie pendant 40 secondes ».
+                    </div>
+                </div>
+                <div class="variable-item">
+                    <strong>Conséquence (C) :</strong> L'événement qui suit immédiatement le comportement et modifie sa probabilité d'occurrence future.
+                </div>
+            </div>
+        </div>
+
+        <div id="page-2" class="section-panel">
+            <h2>PARTIE 2 : Les Principes d'Apprentissage et de Modification du Comportement</h2>
+            <h3>2.1 Renforcement vs Punition</h3>
+            <p>Le comportement est déterminé par ses conséquences. Deux mécanismes majeurs régissent l'apprentissage :</p>
+            <ul>
+                <li><strong>Le Renforcement Positif :</strong> L'ajout d'un stimulus agréable immédiatement après le comportement, ce qui augmente la fréquence de ce comportement à l'avenir (ex: l'enfant demande de l'eau, on lui donne un verre d'eau &rarr; il réutilisera la parole).</li>
+                <li><strong>Le Renforcement Négatif :</strong> Le retrait d'un stimulus aversif ou inconfortable immédiatement après le comportement, ce qui augmente également sa fréquence future (ex: l'enfant pfplace ses mains sur ses oreilles face à un bruit strident, le bruit s'arrête &rarr; il reproduira ce geste pour s'isoler).</li>
+            </ul>
+            <div class="review-box" style="border-color: var(--rose-600); background-color: var(--rose-50);">
+                <h4 style="color: var(--rose-600);">⚠️ Note éthique majeure :</h4>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--slate-700);">L'utilisation de la punition (positive ou négative) est strictement restreinte et bannie des protocoles parentaux en raison des effets secondaires délétères (anxiété, évitement, agressivité). La prise en charge repose exclusivement sur le contrôle des antécédents et le renforcement positif différentiel.</p>
+            </div>
+
+            <h3>2.2 La Notion Cruciale d'Opération de Motivation (MO)</h3>
+            <p>Un renforçateur n'a pas une valeur fixe. Sa force dépend de deux états internes :</p>
+            <ul>
+                <li><strong>La privation :</strong> Si l'enfant n'a pas vu son dessin animé préféré depuis 3 jours, la valeur incitative de ce dessin animé est maximale.</li>
+                <li><strong>La satiété :</strong> Si l'enfant vient de manger un paquet entier de bonbons, le bonbon perd instantanément son pouvoir renforçateur. Le parent doit observer ces états pour maintenir l'engagement de l'enfant.</li>
+            </ul>
+        </div>
+
+        <div id="page-3" class="section-panel">
+            <h2>PARTIE 3 : Techniques d'Enseignement et de Transfert de Compétences</h2>
+            <h3>3.1 L'Enseignement par Essais Distincts</h3>
+            <p>Utilisé pour introduire de nouvelles compétences cognitives ou académiques. Un essai distinct comporte 5 phases :</p>
+            <ol>
+                <li><strong>L'Instruction :</strong> Claire, concise, sans fioritures (ex: « Fais comme moi »).</li>
+                <li><strong>Le Guidage :</strong> Immédiat au début pour éviter l'échec (sans attendre que l'enfant se trompe).</li>
+                <li><strong>La Réponse :</strong> L'action de l'enfant (correcte ou incorrecte).</li>
+                <li><strong>La Conséquence :</strong> Renforcement immédiat si correct, ou procédure de correction d'erreur si incorrect.</li>
+                <li><strong>L'Intervalle entre deux essais :</strong> Pause de 3 à 5 secondes pour marquer la fin de la séquence.</li>
+            </ol>
+
+            <h3>3.2 Guidages et Procédure d'Estompage</h3>
+            <p>Pour rendre l'enfant autonome, vous devez progressivement retirer vos aides (estompage) selon une hiérarchie stricte, allant du plus intrusif au moins intrusif :</p>
+            <div class="math-center">
+                $$\text{Guidage Physique Total} \rightarrow \text{Guidage Physique Partiel} \rightarrow \text{Modélisation (Montrer le geste)} \rightarrow \text{Guidage Gestuel (Pointer)} \rightarrow \text{Guidage Visuel (Pictogramme)} \rightarrow \text{Autonomie}$$
+            </div>
+            <p>L'erreur la plus fréquente des parents est la dépendance au guidage : continuer à aider l'enfant alors qu'il a la capacité d'exécuter l'action seule. Le retrait doit être planifié et systématique.</p>
+
+            <h3>3.3 L'Analyse de Tâche et le Chaînage</h3>
+            <p>Les gestes d'autonomie (se brosser les dents, s'habiller) doivent être découpés en étapes microscopiques :</p>
+            <ul>
+                <li><strong>Chaînage avant :</strong> L'enfant apprend l'étape 1 en autonomie, le parent fait le reste. Quand l'étape 1 est acquise, l'enfant réalise l'étape 1 et 2, et ainsi de suite.</li>
+                <li><strong>Chaînage arrière :</strong> Le parent fait toutes les étapes sauf la dernière (ex: remonter son pantalon). L'enfant ressent immédiatement le succès final et le renforcement associé. Puis on remonte la chaîne à l'envers.</li>
+            </ul>
+        </div>
+
+        <div id="page-4" class="section-panel">
+            <h2>PARTIE 4 : Évaluation et Prise en Charge des Comportements Défis</h2>
+            <p>Face à des comportements problématiques (crises violentes, auto-mutilation, destructions), l'ABA postule qu'aucun comportement n'est aléatoire ou pathologique en soi. Il a toujours une fonction communicative.</p>
+            
+            <h3>4.1 Les 4 Fonctions du Comportement</h3>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fonction</th>
+                            <th>Description Clinique</th>
+                            <th>Exemple Typique</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Échappement / Évitement</strong></td>
+                            <td>Le comportement permet de fuir une tâche, une consigne ou une stimulation sensorielle douloureuse.</td>
+                            <td>L'enfant se tape la tête quand on lui présente la feuille d'exercices.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accès au Tangible</strong></td>
+                            <td>Le comportement vise à obtenir un objet physique, un aliment ou l'accès à une activité.</td>
+                            <td>L'enfant hurle au supermarché devant le rayon des bonbons jusqu'à l'obtention du sachet.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Attention</strong></td>
+                            <td>Le comportement cherche à déclencher une interaction sociale, même négative (réprimande, regard).</td>
+                            <td>L'enfant jette un livre au sol tout en fixant intensément le regard de son père.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sensorielle (Automatique)</strong></td>
+                            <td>Le comportement procure un feedback sensoriel interne agréable ou atténue une douleur.</td>
+                            <td>Le balancement du corps (rocking) ou le battement des mains (flapping).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4.2 L'Analyse Fonctionnelle Descriptive (Collecte de Données)</h3>
+            <p>Avant toute intervention, le parent aidant doit remplir un journal clinique rigoureux pendant plusieurs jours :</p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date et Heure</th>
+                            <th>Antécédent (A)</th>
+                            <th>Comportement Précis (B)</th>
+                            <th>Conséquence Réelle (C)</th>
+                            <th>Fonction Présumée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>27/05 à 16h15</td>
+                            <td>Fin du temps d'écran, iPad confisqué.</td>
+                            <td>Se jette au sol, tape des pieds, pleure.</td>
+                            <td>Le parent redonne l'iPad pour 5 minutes.</td>
+                            <td>Accès au Tangible</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4.3 Protocoles d'Intervention : L'Extinction et le Remplacement (DRA/DRI)</h3>
+            <ul>
+                <li><strong>L'Extinction :</strong> Consiste à couper définitivement le renforcement qui maintenait le comportement problème. Si la crise visait l'accès à l'iPad, l'iPad ne doit plus jamais être redonné pendant la crise.
+                    <p style="margin-top: 6px; font-size: 0.9rem; font-style: italic;"><strong>Avertissement scientifique :</strong> L'application de l'extinction provoque systématiquement un pic d'extinction (extinction burst). Le comportement problème va temporairement s'aggraver en intensité et en durée avant de chuter. Le parent doit tenir bon ; céder durant cette phase ancrerait une crise encore plus violente.</p>
+                </li>
+                <li><strong>L'Enseignement d'un Comportement de Remplacement (DRA) :</strong> On ne supprime pas un comportement sans donner une alternative à l'enfant. Si l'enfant crie pour avoir l'iPad, on lui enseigne à donner le pictogramme « iPad » ou à prononcer le mot de manière calme. Le renforcement (l'iPad) est alors transféré exclusivement sur ce nouveau comportement adapté.
+                </li>
+            </ul>
+        </div>
+
+        <div id="page-5" class="section-panel">
+            <h2>Validation Clinique : Prise en charge ABA pour Parents Aidants</h2>
+            <p>Voici un outil d'évaluation interactive de niveau expert, conçu pour tester vos capacités d'analyse clinique et vos prises de décision face à des situations concrètes du quotidien.</p>
+            
+            <div class="quiz-wrapper">
+                <div id="question-box" class="quiz-q-text">Chargement de l'évaluation...</div>
+                <div id="options-box" class="quiz-options-list"></div>
+                <div id="feedback-box" class="quiz-feedback"></div>
+            </div>
+        </div>
+
+        <div class="footer-controls">
+            <button id="back-btn" class="nav-control-btn" onclick="offsetPage(-1)" disabled>Précédent</button>
+            <button id="forward-btn" class="nav-control-btn highlight-btn" onclick="offsetPage(1)">Suivant</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentPanel = 1;
+    const maxPanels = 5;
+
+    function changePanel(num) {
+        currentPanel = num;
+        document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        
+        // Rendre visible le bon panneau
+        if(num === 1) document.getElementById('panel-1').classList.add('active');
+        else if(num === 2) document.getElementById('page-2').classList.add('active');
+        else if(num === 3) document.getElementById('page-3').classList.add('active');
+        else if(num === 4) document.getElementById('page-4').classList.add('active');
+        else if(num === 5) {
+            document.getElementById('page-5').classList.add('active');
+            displayQuizQuestion();
+        }
+
+        document.getElementById('nav-' + num).classList.add('active');
+
+        // Gérer l'état des boutons de contrôle inférieurs
+        document.getElementById('back-btn').disabled = (num === 1);
+        const fwdBtn = document.getElementById('forward-btn');
+        if(num === maxPanels) {
+            fwdBtn.innerText = "Terminer le Manuel";
+            fwdBtn.classList.remove('highlight-btn');
+        } else {
+            fwdBtn.innerText = "Suivant";
+            fwdBtn.classList.add('highlight-btn');
+        }
+    }
+
+    function offsetPage(dir) {
+        let target = currentPanel + dir;
+        if(target >= 1 && target <= maxPanels) {
+            changePanel(target);
+        } else if (target > maxPanels) {
+            alert("Félicitations, vous avez achevé l'étude de ce manuel clinique d'ABA parentale !");
+        }
+    }
+
+    // Script du Quiz d'évaluation parentale
+    const evaluationQuestions = [
+        {
+            title: "Situation 1 : Votre enfant de 6 ans, non verbal, présente des comportements d'auto-agression (se frapper les joues) uniquement lors des séances d'orthophonie, au moment où les consignes de pointage d'images deviennent complexes. Si l'intervenant suspend temporairement l'exercice pour sécuriser l'enfant, quelle est la fonction du comportement mise en évidence et quel est le risque de cette réaction ?",
+            choices: [
+                "La fonction est l'accès au tangible. Le risque est que l'enfant développe une frustration liée au manque de matériel pédagogique.",
+                "La fonction est l'échappement. Le risque est le renforcement négatif du comportement : l'enfant apprend que se frapper permet d'interrompre la tâche complexe.",
+                "La fonction est la recherche d'attention sociale. Le risque est d'isoler l'enfant.",
+                "La fonction est purement sensorielle. Le risque est de passer à côté d'une douleur somatique."
+            ],
+            correctIdx: 1,
+            rationale: "Analyse clinique : Retirer la tâche difficile immédiatement après l'auto-agression valide l'efficacité du comportement pour fuir la contrainte (renforcement négatif), ce qui augmentera l'occurrence des crises futures."
+        },
+        {
+            title: "Situation 2 : Vous appliquez une procédure d'extinction pour un comportement de cris dont la fonction est l'accès au tangible (un jouet spécifique). Au bout du troisième jour, les cris augmentent massivement en intensité, et l'enfant commence à jeter des objets, ce qu'il ne faisait pas auparavant. Comment analysez-vous scientifiquement cette situation ?",
+            choices: [
+                "Il s'agit d'un échec de la méthode ABA. Le protocole d'extinction est inadapté.",
+                "C'est l'expression d'un traumatisme psychologique lié à la frustration.",
+                "C'est un phénomène normal de pic d'extinction (extinction burst). L'organisme intensifie ses efforts pour obtenir le renforçateur. Il faut maintenir l'extinction et guider un comportement de remplacement.",
+                "Le comportement a changé de fonction et est devenu une recherche d'attention."
+            ],
+            correctIdx: 2,
+            rationale: "Analyse clinique : Le pic d'extinction (extinction burst) est une étape transitoire classique où le comportement s'intensifie avant de chuter. La constance absolue du parent est indispensable à ce stade."
+        },
+        {
+            title: "Situation 3 : Vous souhaitez enseigner l'usage d'une cuillère à votre enfant à l'aide d'une procédure de chaînage arrière (backward chaining). Comment devez-vous structurer votre intervention lors des premiers essais ?",
+            choices: [
+                "Vous laissez l'enfant prendre la cuillère seul, puis vous le guidez physiquement pour la plonger dans l'assiette.",
+                "Vous réalisez vous-même l'intégralité du geste, de la prise de la cuillère jusqu'au contact avec les lèvres.",
+                "Vous guidez physiquement l'enfant pour prendre la cuillère, la remplir et l'approcher de son visage, puis vous relâchez votre aide pour qu'il effectue seul le dernier centimètre vers sa bouche avant d'être renforcé.",
+                "Vous lui donnez simplement l'instruction verbale et vous attendez qu'il procède par essais et erreurs."
+            ],
+            correctIdx: 3, /* Note : La 3eme option (index 2) contient l'affirmation correcte selon les principes énoncés */
+            correctIdx: 2,
+            rationale: "Analyse clinique : Le chaînage arrière exige que l'adulte réalise les premières étapes et que l'enfant exécute de manière autonome la toute dernière action du processus afin d'être associé directement au renforcement final."
+        }
+    ];
+
+    let currentQIdx = 0;
+    let quizScore = 0;
+
+    function displayQuizQuestion() {
+        const feedbackBox = document.getElementById('feedback-box');
+        feedbackBox.className = 'quiz-feedback';
+        
+        if (currentQIdx >= evaluationQuestions.length) {
+            document.getElementById('question-box').innerText = "Évaluation Clôturée !";
+            document.getElementById('options-box').innerHTML = `<p style='font-size:1.05rem; font-weight:bold; color:var(--slate-800);'>Votre score final de validation clinique : ${quizScore} / ${evaluationQuestions.length}</p><button class='nav-control-btn highlight-btn' style='margin-top:15px;' onclick='restartEvaluation()'>Recommencer l'évaluation</button>`;
+            return;
+        }
+
+        const currentData = evaluationQuestions[currentQIdx];
+        document.getElementById('question-box').innerText = currentData.title;
+        
+        const optionsBox = document.getElementById('options-box');
+        optionsBox.innerHTML = '';
+
+        currentData.choices.forEach((text, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option-btn';
+            btn.innerText = text;
+            btn.onclick = () => checkSelectedChoice(idx, btn);
+            optionsBox.appendChild(btn);
+        });
+    }
+
+    function checkSelectedChoice(chosenIdx, clickedElement) {
+        const currentData = evaluationQuestions[currentQIdx];
+        const buttons = document.querySelectorAll('.quiz-option-btn');
+        buttons.forEach(b => b.disabled = true);
+
+        const feedbackBox = document.getElementById('feedback-box');
+        feedbackBox.innerText = currentData.rationale;
+
+        if (chosenIdx === currentData.correctIdx) {
+            clickedElement.classList.add('correct-style');
+            feedbackBox.classList.add('show', 'pass');
+            quizScore++;
+        } else {
+            clickedElement.classList.add('incorrect-style');
+            buttons[currentData.correctIdx].classList.add('correct-style');
+            feedbackBox.classList.add('show', 'fail');
+        }
+
+        const nextActionBtn = document.createElement('button');
+        nextActionBtn.className = 'nav-control-btn';
+        nextActionBtn.style.marginTop = '15px';
+        nextActionBtn.innerText = currentQIdx === evaluationQuestions.length - 1 ? "Consulter le score final" : "Question suivante";
+        nextActionBtn.onclick = () => {
+            currentQIdx++;
+            displayQuizQuestion();
+        };
+        document.getElementById('options-box').appendChild(nextActionBtn);
+    }
+
+    function restartEvaluation() {
+        currentQIdx = 0;
+        quizScore = 0;
+        displayQuizQuestion();
+    }
+</script>
+
+</body>
+</html>
